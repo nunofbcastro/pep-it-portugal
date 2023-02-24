@@ -1,0 +1,39 @@
+.myTable {
+  @apply table-auto overflow-x-scroll w-full block md:table;
+}
+
+.myTable tr {
+  @apply h-10 odd:bg-[#F9DCDE] odd:text-TextLight even:bg-BackgroundLight dark:even:bg-BackgroundDark border-t-[1px] last:border-b;
+}
+
+.myTable th {
+  @apply uppercase text-primary text-xs text-left p-2;
+}
+
+.myTable td {
+  @apply text-sm text-left p-2 truncate whitespace-pre-wrap;
+}
+
+.myTableTop {
+  @apply flex gap-2 p-2 flex-col sm:flex-row justify-between;
+}
+
+.myTableSearch {
+  @apply relative text-[#6E6893] overflow-auto;
+}
+
+.myTableSearch span {
+  @apply absolute inset-y-0 left-0 flex items-center pl-2;
+}
+
+.myTableSearch input {
+  @apply py-2 text-sm bg-[#F9DCDE] pl-10 rounded-md border-none focus:ring-0 w-full sm:w-96;
+}
+
+.myTableBottom {
+  @apply flex justify-end p-2 gap-5 text-[#6E6893] align-middle text-xs font-semibold;
+}
+
+.custom-a a {
+  @apply underline text-primary;
+}

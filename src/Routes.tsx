@@ -1,5 +1,5 @@
 import {
-  createBrowserRouter,
+  createHashRouter,
   RouteObject,
   RouterProvider,
 } from 'react-router-dom';
@@ -47,20 +47,17 @@ const routes: RouteObject[] = [
   },
 ];
 
-const router = createBrowserRouter(
-  [
-    {
-      path: '/',
-      element: <Layout />,
-      children: routes,
-    },
-    {
-      path: '*',
-      element: <NotFound />,
-    },
-  ],
-  { basename: '/pep-it-portugal' }
-);
+const router = createHashRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children: routes,
+  },
+  {
+    path: '*',
+    element: <NotFound />,
+  },
+]);
 
 function Routes() {
   return <RouterProvider router={router} />;

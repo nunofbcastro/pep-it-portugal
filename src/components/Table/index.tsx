@@ -70,7 +70,7 @@ export default function Table(props: TableProps) {
   }, [props.tableData]);
 
   return (
-    <div className={`${size.size}`}>
+    <div className={`${size.size} w-full`}>
       <div className="block bg-BackgroundLight dark:bg-BackgroundDark border border-gray-200 dark:border-gray-700 rounded-lg shadow-md">
         <div className="myTableTop">
           <div className="myTableSearch">

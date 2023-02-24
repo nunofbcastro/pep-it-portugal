@@ -5,7 +5,7 @@ import logo from '../../../assets/images/icon.png';
 export default function Header() {
   return (
     <Navbar rounded={false} className="!bg-transparent !shadow-lg">
-      <Navbar.Brand href="">
+      <Navbar.Brand href="/#">
         <img src={logo} className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
           PorqueEUprogramo

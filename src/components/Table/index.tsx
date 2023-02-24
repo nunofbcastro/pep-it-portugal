@@ -131,7 +131,7 @@ export default function Table(props: TableProps) {
                 {titles.map((item, indexTd) => (
                   <td key={indexTd}>
                     <div
-                      className="custom-a flex items-center justify-center text-justify"
+                      className="flex items-center justify-center "
                       dangerouslySetInnerHTML={{ __html: linkify(items[item]) }}
                     ></div>
                   </td>

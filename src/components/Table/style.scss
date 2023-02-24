@@ -11,7 +11,7 @@
 }
 
 .myTable td {
-  @apply text-sm text-left p-2 truncate whitespace-pre-wrap;
+  @apply text-sm text-left p-2 truncate whitespace-pre-wrap align-top custom-a  text-justify;
 }
 
 .myTableTop {

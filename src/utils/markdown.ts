@@ -96,10 +96,10 @@ export function convertTableToJson(input: string): TableItem[] {
 
 export function linkify(text: string) {
   // Expressão regular para identificar URLs na string
-  const urlRegex = /\[([^\s]+)\]\((https?:\/\/[^\s]+)\)/g;
+  const urlRegex = /\[([^\s]+)\]\(([https?:\/\/|www.][^\s]+)\)/g;
 
   return text.replace(urlRegex, (data, name, url) => {
     // Substituir a URL pela tag <a> com href e target
-    return `<a href="${url}" target="_blank">${name}</a>`;
+    return `<a href="${url}" target="_blank" target="_blank">${name}</a>`;
   });
 }

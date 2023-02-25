@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { GetFirstJob } from '../../services/FirstJobRequest';
 
-import { FirstJobTable } from '../models/FirstJobTable';
+import { FirstJobTable } from '../../models/FirstJobTable';
 
 import { LoadingScreen } from '../../components/LoadingScreen';
 import Table from '../../components/Table';

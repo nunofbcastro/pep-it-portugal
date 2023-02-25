@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { TableItem } from '../models/TableItem';
+import { WorkModeTables } from '../models/WorkModeTables';
 import { convertTableToJson, selectTableFromMarkdown } from '../utils/markdown';
 
-export async function GetWorkMode(): Promise<TableItem[]> {
+export async function GetWorkMode(): Promise<WorkModeTables> {
   const url = `${import.meta.env.VITE_URL_WORK_MODE}`;
 
   let result = (
@@ -11,5 +11,10 @@ export async function GetWorkMode(): Promise<TableItem[]> {
     })
   ).data;
 
-  return convertTableToJson(selectTableFromMarkdown(result));
+  let resultInJson: WorkModeTables = {
+    allData: convertTableToJson(selectTableFromMarkdown(result, 0)),
+    dataAnalysis: convertTableToJson(selectTableFromMarkdown(result, 1)),
+  };
+
+  return resultInJson;
 }

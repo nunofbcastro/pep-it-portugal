@@ -1,26 +1,26 @@
 import { useEffect, useState } from 'react';
 
-import { GetChatgpt } from '../../services/ChatgptRequest';
+import { GetFirstJob } from '../../services/FirstJobRequest';
 
-import { ChatgptTables } from '../../models/ChatgptTables';
+import { FirstJobTable } from '../models/FirstJobTable';
 
 import { LoadingScreen } from '../../components/LoadingScreen';
 import Table from '../../components/Table';
 import Tab from '../../components/Tabs/Tab';
 import Tabs from '../../components/Tabs';
 
-export default function Chatgpt() {
+export default function FirstJob() {
   const [isLoading, setLoading] = useState<boolean>(true);
   const [isError, setError] = useState<boolean>(false);
-  const [data, setData] = useState<ChatgptTables>({
+  const [data, setData] = useState<FirstJobTable>({
     allData: [],
     dataAnalysis: [],
   });
 
   useEffect(() => {
     setLoading(true);
-    GetChatgpt()
-      .then((salaries: ChatgptTables) => {
+    GetFirstJob()
+      .then((salaries: FirstJobTable) => {
         setData(salaries);
         setLoading(false);
       })

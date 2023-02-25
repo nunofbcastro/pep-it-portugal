@@ -3,7 +3,8 @@ import { Navbar } from 'flowbite-react';
 
 export interface AppNavLinkProps {
   to: string;
-  text: string;
+  className?: string;
+  children: React.ReactNode;
 }
 
 export default function AppNavLink(props: AppNavLinkProps) {
@@ -31,17 +32,18 @@ export default function AppNavLink(props: AppNavLinkProps) {
   };
 
   return (
-    <span onClick={clickHandler}>
+    <span onClick={clickHandler} className={props.className}>
       <Navbar.Link
         href={props.to}
         active={ValidatePath()}
         theme={{
           active: {
             on: 'md:!bg-transparent !bg-primary md:text-primary text-white',
+            off: 'text-gray-700 dark:text-gray-400 dark:hover:text-white md:hover:text-black md:dark:hover:text-white',
           },
         }}
       >
-        {props.text}
+        {props.children}
       </Navbar.Link>
     </span>
   );

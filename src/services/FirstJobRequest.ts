@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { FrameworksTables } from '../models/FrameworksTables';
+import { FirstJobTable } from '../models/FirstJobTable';
 import { convertTableToJson, selectTableFromMarkdown } from '../utils/markdown';
 
-export async function GetFrameworks(): Promise<FrameworksTables> {
-  const url = `${import.meta.env.VITE_URL_FRAMEWORKS}`;
+export async function GetFirstJob(): Promise<FirstJobTable> {
+  const url = `${import.meta.env.VITE_URL_FIRST_JOB}`;
 
   let result = (
     await axios.get(url, {
@@ -11,7 +11,7 @@ export async function GetFrameworks(): Promise<FrameworksTables> {
     })
   ).data;
 
-  let resultInJson: FrameworksTables = {
+  let resultInJson: FirstJobTable = {
     allData: convertTableToJson(selectTableFromMarkdown(result, 0)),
     dataAnalysis: convertTableToJson(selectTableFromMarkdown(result, 1)),
   };

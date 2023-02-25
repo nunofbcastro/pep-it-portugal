@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  pep-it-portugal:
+    image: ${DOCKER_REGISTRY-}pep-it-portugal
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: .docker/entrypoint.sh
+    ports:
+      - '5173:5173'
+    volumes:
+      - .:/appPepITPortugal

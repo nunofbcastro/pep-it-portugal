@@ -2,20 +2,25 @@ import { useEffect, useState } from 'react';
 
 import { GetWorkMode } from '../../services/WorkModeRequest';
 
-import { TableItem } from '../../models/TableItem';
+import { WorkModeTables } from '../../models/WorkModeTables';
 
 import { LoadingScreen } from '../../components/LoadingScreen';
 import Table from '../../components/Table';
+import Tab from '../../components/Tabs/Tab';
+import Tabs from '../../components/Tabs';
 
 export default function WorkMode() {
   const [isLoading, setLoading] = useState<boolean>(true);
   const [isError, setError] = useState<boolean>(false);
-  const [data, setData] = useState<TableItem[]>([]);
+  const [data, setData] = useState<WorkModeTables>({
+    allData: [],
+    dataAnalysis: [],
+  });
 
   useEffect(() => {
     setLoading(true);
     GetWorkMode()
-      .then((salaries: TableItem[]) => {
+      .then((salaries: WorkModeTables) => {
         setData(salaries);
         setLoading(false);
       })
@@ -29,7 +34,14 @@ export default function WorkMode() {
     <>
       <LoadingScreen isLoading={isLoading} isError={isError}>
         <div className="p-10 flex min:h-screen justify-center items-center">
-          <Table tableData={data} placeholder="" />
+          <Tabs>
+            <Tab title="Todos os dados">
+              <Table tableData={data.allData} placeholder="" />
+            </Tab>
+            <Tab title="Análise dos dados">
+              <Table tableData={data.dataAnalysis} placeholder="" />
+            </Tab>
+          </Tabs>
         </div>
       </LoadingScreen>
     </>

@@ -15,6 +15,7 @@ import Courses from './pages/Courses';
 import Frameworks from './pages/Frameworks';
 import Salaries from './pages/Salaries';
 import WorkMode from './pages/WorkMode';
+import FirstJob from './pages/FirstJob';
 
 const routes: RouteObject[] = [
   {
@@ -44,6 +45,10 @@ const routes: RouteObject[] = [
   {
     path: 'workmode',
     element: <WorkMode />,
+  },
+  {
+    path: 'firstjob',
+    element: <FirstJob />,
   },
 ];
 

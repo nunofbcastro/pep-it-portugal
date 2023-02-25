@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { TableItem } from '../models/TableItem';
+import { SalariesTables } from '../models/SalariesTables';
 import { convertTableToJson, selectTableFromMarkdown } from '../utils/markdown';
 
-export async function GetSalaries(): Promise<TableItem[]> {
+export async function GetSalaries(): Promise<SalariesTables> {
   const url = `${import.meta.env.VITE_URL_SALARIES}`;
 
   let result = (
@@ -11,5 +11,14 @@ export async function GetSalaries(): Promise<TableItem[]> {
     })
   ).data;
 
-  return convertTableToJson(selectTableFromMarkdown(result));
+  let resultInJson: SalariesTables = {
+    allData: convertTableToJson(selectTableFromMarkdown(result, 0)),
+    portugal: convertTableToJson(selectTableFromMarkdown(result, 1)),
+    outsidePortugal: convertTableToJson(selectTableFromMarkdown(result, 2)),
+    rolesOrderRemuneration: convertTableToJson(
+      selectTableFromMarkdown(result, 3)
+    ),
+  };
+
+  return resultInJson;
 }

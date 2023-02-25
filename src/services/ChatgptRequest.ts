@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { TableItem } from '../models/TableItem';
+import { ChatgptTables } from '../models/ChatgptTables';
 import { convertTableToJson, selectTableFromMarkdown } from '../utils/markdown';
 
-export async function GetChatgpt(): Promise<TableItem[]> {
+export async function GetChatgpt(): Promise<ChatgptTables> {
   const url = `${import.meta.env.VITE_URL_CHATGPT}`;
 
   let result = (
@@ -11,5 +11,10 @@ export async function GetChatgpt(): Promise<TableItem[]> {
     })
   ).data;
 
-  return convertTableToJson(selectTableFromMarkdown(result));
+  let resultInJson: ChatgptTables = {
+    allData: convertTableToJson(selectTableFromMarkdown(result, 0)),
+    dataAnalysis: convertTableToJson(selectTableFromMarkdown(result, 1)),
+  };
+
+  return resultInJson;
 }

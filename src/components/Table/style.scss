@@ -1,5 +1,5 @@
 .myTable {
-  @apply table-auto overflow-x-scroll w-full block md:table;
+  @apply table-auto md:table-fixed overflow-x-scroll w-full block md:table;
 }
 
 .myTable tr {

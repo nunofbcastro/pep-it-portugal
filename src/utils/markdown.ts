@@ -100,6 +100,6 @@ export function linkify(text: string) {
 
   return text.replace(urlRegex, (data, name, url) => {
     // Substituir a URL pela tag <a> com href e target
-    return `<a href="${url}" target="_blank" target="_blank">${name}</a>`;
+    return `<a href="${url}" target="_blank">${name}</a>`;
   });
 }

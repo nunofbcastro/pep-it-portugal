@@ -32,6 +32,12 @@ npm install
 npm run dev
 ```
 
+or
+
+```
+docker compose up -d
+```
+
 Endpoint [http://localhost:5173/pep-it-portugal/](http://localhost:5173/pep-it-portugal/)
 
 ---

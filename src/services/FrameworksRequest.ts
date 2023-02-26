@@ -1,19 +1,15 @@
-import axios from 'axios';
-import { FrameworksTables } from '../models/FrameworksTables';
-import { convertTableToJson, selectTableFromMarkdown } from '../utils/markdown';
+import MyAPI from './MyAPI';
+import { Tables } from '../models/Tables';
+import { convertTableToJson, selectTableFromMarkdown } from '../utils/Markdown';
 
-export async function GetFrameworks(): Promise<FrameworksTables> {
+export async function GetFrameworks(): Promise<Tables> {
   const url = `${import.meta.env.VITE_URL_FRAMEWORKS}`;
 
-  let result = (
-    await axios.get(url, {
-      timeout: 5000,
-    })
-  ).data;
+  let result = (await MyAPI().get(url)).data;
 
-  let resultInJson: FrameworksTables = {
-    allData: convertTableToJson(selectTableFromMarkdown(result, 0)),
-    dataAnalysis: convertTableToJson(selectTableFromMarkdown(result, 1)),
+  let resultInJson: Tables = {
+    ['All_Data']: convertTableToJson(selectTableFromMarkdown(result, 0)),
+    ['Data_Analysis']: convertTableToJson(selectTableFromMarkdown(result, 1)),
   };
 
   return resultInJson;

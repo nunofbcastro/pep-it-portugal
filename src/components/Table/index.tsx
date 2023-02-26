@@ -3,14 +3,15 @@ import './style.scss';
 import { ChangeEvent, useState, useEffect } from 'react';
 import useDebounce from '../../hooks/useDebounce';
 
+import ReactMarkdown from 'react-markdown';
+
 import { TableSizes } from '../../models/TableSizes';
 import { SortOrder } from '../../models/SortOrder';
 import { TableItem } from '../../models/TableItem';
 import { TableSort } from '../../models/TableSort';
 
-import { linkify } from '../../utils/markdown';
-import { sortArrayTableItems } from '../../utils/sorting';
-import { searchTableItems } from '../../utils/search';
+import { sortArrayTableItems } from '../../utils/Sorting';
+import { searchTableItems } from '../../utils/Search';
 
 import {
   AiOutlineSearch as SearchIcon,
@@ -130,10 +131,9 @@ export default function Table(props: TableProps) {
               <tr key={indexTr}>
                 {titles.map((item, indexTd) => (
                   <td key={indexTd}>
-                    <div
-                      className="flex items-center justify-center "
-                      dangerouslySetInnerHTML={{ __html: linkify(items[item]) }}
-                    ></div>
+                    <div className="flex items-center justify-center">
+                      <ReactMarkdown>{items[item]}</ReactMarkdown>
+                    </div>
                   </td>
                 ))}
               </tr>

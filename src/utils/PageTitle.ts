@@ -3,9 +3,9 @@ import { useEffect } from 'react';
 export function useTitle(title: string) {
   useEffect(() => {
     return () => {
-      document.title = `${
-        title.length > 0 ? `${title} - ` : ''
-      } PorqueEUprogramo`;
+      let newTitle = `${title.length > 0 ? `${title} - ` : ''}`;
+      console.log(newTitle);
+      document.title = `${newTitle}PorqueEUprogramo`;
     };
-  });
+  }, []);
 }

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useTitle } from '../../utils/PageTitle';
 
 import Twitch from '../../components/Twitch';

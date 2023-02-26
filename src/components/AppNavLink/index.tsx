@@ -39,7 +39,7 @@ export default function AppNavLink(props: AppNavLinkProps) {
         theme={{
           active: {
             on: 'md:!bg-transparent !bg-primary md:text-primary text-white',
-            off: 'text-gray-700 dark:text-gray-400 dark:hover:text-white md:hover:text-black md:dark:hover:text-white',
+            off: 'text-gray-700 dark:text-gray-400 dark:hover:text-white hover:text-black dark:hover:text-white',
           },
         }}
       >

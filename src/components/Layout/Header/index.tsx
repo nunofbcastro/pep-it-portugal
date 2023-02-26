@@ -15,7 +15,7 @@ interface CreateDropdownProps {
 
 function CreateDropdown(props: CreateDropdownProps) {
   return (
-    <div className="!text-gray-700  dark:!text-gray-400 py-2 pr-4 pl-3 md:p-0">
+    <div className="!text-gray-700 dark:!text-gray-400 py-2 pr-4 pl-3 md:p-0 hover:!text-black dark:hover:!text-white">
       <Dropdown
         label={props.navbarDropdown.title}
         inline={true}

@@ -1,21 +1,21 @@
-import axios from 'axios';
-import { SalariesTables } from '../models/SalariesTables';
-import { convertTableToJson, selectTableFromMarkdown } from '../utils/markdown';
+import MyAPI from './MyAPI';
+import { Tables } from '../models/Tables';
+import { convertTableToJson, selectTableFromMarkdown } from '../utils/Markdown';
 
-export async function GetSalaries(): Promise<SalariesTables> {
+export async function GetSalaries(): Promise<Tables> {
   const url = `${import.meta.env.VITE_URL_SALARIES}`;
 
-  let result = (
-    await axios.get(url, {
-      timeout: 5000,
-    })
-  ).data;
+  let result = (await MyAPI().get(url)).data;
 
-  let resultInJson: SalariesTables = {
-    allData: convertTableToJson(selectTableFromMarkdown(result, 0)),
-    portugal: convertTableToJson(selectTableFromMarkdown(result, 1)),
-    outsidePortugal: convertTableToJson(selectTableFromMarkdown(result, 2)),
-    rolesOrderRemuneration: convertTableToJson(
+  let resultInJson: Tables = {
+    ['All_Data']: convertTableToJson(selectTableFromMarkdown(result, 0)),
+    ['Data_Analysis_Portugal']: convertTableToJson(
+      selectTableFromMarkdown(result, 1)
+    ),
+    ['Data_Analysis_Outside_Portugal']: convertTableToJson(
+      selectTableFromMarkdown(result, 2)
+    ),
+    ['Data_Analysis_Roles_Order_Remuneration']: convertTableToJson(
       selectTableFromMarkdown(result, 3)
     ),
   };

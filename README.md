@@ -4,7 +4,7 @@
 
 <img src="/.github/assets/home_dark.jpeg?raw=true"/>
 
-I developed a simple platform that shows some of the @porqueeuprogramo. These studies were originally written in markdown and are converted to JSON format.
+I have developed a simple platform that displays some studies from @porqueeuprogramo. These studies were originally written in markdown format and are now converted into tables on the webpage.
 
 <p>
   <a href="https://nunofbcastro.github.io/pep-it-portugal/" target="_blank">

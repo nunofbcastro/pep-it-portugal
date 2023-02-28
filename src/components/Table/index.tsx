@@ -87,59 +87,62 @@ export default function Table(props: TableProps) {
           </div>
         </div>
 
-        <table className="myTable">
-          <tbody>
-            <tr>
-              {titles.map((item, index) => (
-                <th key={index}>
-                  <div className="flex items-center justify-center">
-                    {item}
-                    <div className="min-w-12 flex">
-                      <ArrowDown
-                        className={`h-4 w-4 mx-2 ${
-                          sort.key == item &&
-                          sort.sortOrder == SortOrder.asc &&
-                          colorArrowSelected
-                        }`}
-                        onClick={() => {
-                          setSort({
-                            key: item,
-                            sortOrder: SortOrder.asc,
-                          });
-                        }}
-                      />
-                      <ArrowUp
-                        className={`h-4 w-4 mx-2 ${
-                          sort.key == item &&
-                          sort.sortOrder == SortOrder.desc &&
-                          colorArrowSelected
-                        }`}
-                        onClick={() => {
-                          setSort({
-                            key: item,
-                            sortOrder: SortOrder.desc,
-                          });
-                        }}
-                      />
-                    </div>
-                  </div>
-                </th>
-              ))}
-            </tr>
-
-            {content.map((items, indexTr) => (
-              <tr key={indexTr}>
-                {titles.map((item, indexTd) => (
-                  <td key={indexTd}>
+        <div className="block overflow-x-scroll">
+          <table className="myTable">
+            <tbody>
+              <tr>
+                {titles.map((item, index) => (
+                  <th key={index}>
                     <div className="flex items-center justify-center">
-                      <ReactMarkdown>{items[item]}</ReactMarkdown>
+                      {item}
+                      <div className="min-w-12 flex">
+                        <ArrowDown
+                          className={`h-4 w-4 mx-2 ${
+                            sort.key == item &&
+                            sort.sortOrder == SortOrder.asc &&
+                            colorArrowSelected
+                          }`}
+                          onClick={() => {
+                            setSort({
+                              key: item,
+                              sortOrder: SortOrder.asc,
+                            });
+                          }}
+                        />
+                        <ArrowUp
+                          className={`h-4 w-4 mx-2 ${
+                            sort.key == item &&
+                            sort.sortOrder == SortOrder.desc &&
+                            colorArrowSelected
+                          }`}
+                          onClick={() => {
+                            setSort({
+                              key: item,
+                              sortOrder: SortOrder.desc,
+                            });
+                          }}
+                        />
+                      </div>
                     </div>
-                  </td>
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+
+              {content.map((items, indexTr) => (
+                <tr key={indexTr}>
+                  {titles.map((item, indexTd) => (
+                    <td key={indexTd}>
+                      <div className="flex items-center justify-center">
+                        <ReactMarkdown>{items[item]}</ReactMarkdown>
+                      </div>
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
         <div className="myTableBottom"></div>
       </div>
     </div>

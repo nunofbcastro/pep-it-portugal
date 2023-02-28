@@ -1,6 +1,7 @@
 import { SortOrder } from '../models/SortOrder';
 import { TableItem } from '../models/TableItem';
 import { TableSort } from '../models/TableSort';
+import { compareValues } from './Compare';
 
 export function sortArrayTableItems(
   content: TableItem[],
@@ -11,9 +12,7 @@ export function sortArrayTableItems(
   }
 
   const sortedArr = [...content].sort((a, b) => {
-    const comparison = a[tableSort.key!]
-      .toString()
-      .localeCompare(b[tableSort.key!].toString());
+    const comparison = compareValues(a[tableSort.key!], b[tableSort.key!]);
 
     if (comparison < 0) {
       return tableSort.sortOrder === SortOrder.asc ? -1 : 1;

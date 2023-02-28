@@ -18,7 +18,7 @@ export default function Footer() {
           href="https://github.com/nunofbcastro"
           className="block text-sm text-gray-400 text-center"
         />
-        <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
+        <div className="mt-4 flex space-x-6 sm:mt-0 w-full sm:w-fit justify-center sm:justify-end">
           <FooterIcon
             href="https://www.instagram.com/porqueeuprogramo/"
             icon={IconInstagram}

@@ -1,4 +1,4 @@
-import { useTitle } from '../../utils/PageTitle';
+import { useTitle } from '../../hooks/useTitle';
 
 import { Link } from 'react-router-dom';
 

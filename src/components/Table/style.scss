@@ -1,5 +1,5 @@
 .myTable {
-  @apply table table-auto  md:table-fixed w-full;
+  @apply table table-auto w-full;
 }
 
 .myTable tr {
@@ -11,7 +11,7 @@
 }
 
 .myTable td {
-  @apply text-sm p-2 truncate whitespace-pre-wrap align-top custom-a  text-justify;
+  @apply text-sm p-2 align-top custom-a text-justify;
 }
 
 .myTableTop {

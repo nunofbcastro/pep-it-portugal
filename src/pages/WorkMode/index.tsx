@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useTitle } from '../../utils/PageTitle';
+import { useTitle } from '../../hooks/useTitle';
 
 import { GetWorkMode } from '../../services/WorkModeRequest';
 

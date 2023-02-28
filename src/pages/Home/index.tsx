@@ -1,4 +1,4 @@
-import { useTitle } from '../../utils/PageTitle';
+import { useTitle } from '../../hooks/useTitle';
 
 import Twitch from '../../components/Twitch';
 

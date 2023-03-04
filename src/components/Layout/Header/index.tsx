@@ -92,7 +92,7 @@ export default function Header() {
             { title: 'Cursos', to: '/courses' },
             { title: 'Modo de trabalho', to: '/workmode' },
             { title: 'Frameworks', to: '/frameworks' },
-            { title: 'Chatgpt', to: '/chatgpt' },
+            { title: 'ChatGPT', to: '/chatgpt' },
             { title: 'Primeiro emprego', to: '/firstjob' },
           ],
         },

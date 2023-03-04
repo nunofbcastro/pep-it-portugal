@@ -1,5 +1,14 @@
 import { TableItem } from '../models/TableItem';
 
+function addProtocolToMarkdownLinks(markdownText: string): string {
+  return markdownText.replace(/\[(.+?)\]\(([^'"]+)\)/g, (match, p1, p2) => {
+    if (!/^https?:\/\//i.test(p2)) {
+      p2 = `//${p2}`;
+    }
+    return `[${p1}](${p2})`;
+  });
+}
+
 function removeNonTableLines(text: string): string {
   // Regex pattern to match table lines
   //const tableRegex = /^\s*\|.*\|\s*$/gm;
@@ -89,7 +98,7 @@ export function selectTableFromMarkdown(
 }
 
 export function convertTableToJson(input: string): TableItem[] {
-  const lines = removeNonTableLines(input);
+  const lines = removeNonTableLines(addProtocolToMarkdownLinks(input));
   const table = parseTable(lines);
   return table;
 }

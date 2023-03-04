@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTitle } from '../../hooks/useTitle';
 
-import { GetWorkMode } from '../../services/WorkModeRequest';
+import { GetWorkMode } from '../../services/PorqueEUProgramoRequests';
 
 import { Tables } from '../../models/Tables';
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTitle } from '../../hooks/useTitle';
 
-import { GetSalaries } from '../../services/SalariesRequest';
+import { GetSalaries } from '../../services/PorqueEUProgramoRequests';
 
 import { Tables } from '../../models/Tables';
 

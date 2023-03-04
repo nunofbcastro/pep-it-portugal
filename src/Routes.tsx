@@ -9,7 +9,7 @@ import NotFound from './pages/404';
 import Layout from './components/Layout';
 
 import Home from './pages/Home';
-import Chatgpt from './pages/Chatgpt';
+import ChatGPT from './pages/ChatGPT';
 import Companies from './pages/Companies';
 import Courses from './pages/Courses';
 import Frameworks from './pages/Frameworks';
@@ -24,7 +24,7 @@ const routes: RouteObject[] = [
   },
   {
     path: 'chatgpt',
-    element: <Chatgpt />,
+    element: <ChatGPT />,
   },
   {
     path: 'companies',

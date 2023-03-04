@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTitle } from '../../hooks/useTitle';
 
-import { GetFrameworks } from '../../services/FrameworksRequest';
+import { GetFrameworks } from '../../services/PorqueEUProgramoRequests';
 
 import { Tables } from '../../models/Tables';
 

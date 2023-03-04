@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTitle } from '../../hooks/useTitle';
 
-import { GetChatGPT } from '../../services/ChatGPTRequest';
+import { GetChatGPT } from '../../services/PorqueEUProgramoRequests';
 
 import { Tables } from '../../models/Tables';
 

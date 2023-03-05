@@ -16,7 +16,7 @@ export type TableHeadersProps = {
 export default function TableHeaders({
   titles,
   sort,
-  colorArrowSelected,
+  colorArrowSelected = 'bg-black',
   onArrowClick,
 }: TableHeadersProps) {
   return (

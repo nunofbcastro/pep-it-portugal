@@ -10,7 +10,7 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="shadow-footer px-6 py-8">
+    <footer className="shadow-top px-6 py-8">
       <div className="w-full sm:flex sm:items-center sm:justify-between">
         <FooterCopyright
           by="Nuno Castro"
@@ -22,18 +22,22 @@ export default function Footer() {
           <FooterIcon
             href="https://www.instagram.com/porqueeuprogramo/"
             icon={IconInstagram}
+            rel="noopener noreferrer"
           />
           <FooterIcon
             href="https://twitter.com/porquEUprogramo"
             icon={IconTwitter}
+            rel="noopener noreferrer"
           />
           <FooterIcon
             href="https://www.youtube.com/porqueeuprogramo"
             icon={IconYoutube}
+            rel="noopener noreferrer"
           />
           <FooterIcon
             href="https://www.twitch.tv/porqueeuprogramo"
             icon={IconTwitch}
+            rel="noopener noreferrer"
           />
         </div>
       </div>

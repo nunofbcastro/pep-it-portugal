@@ -1,10 +1,6 @@
-import { useTitle } from '../../hooks/useTitle';
-
 import { Link } from 'react-router-dom';
 
 export default function NotFound() {
-  useTitle('404');
-
   return (
     <div className="h-screen overflow-hidden flex items-center justify-center">
       <main className="h-screen w-full flex flex-col justify-center items-center theme">

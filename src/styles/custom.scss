@@ -1,3 +1,8 @@
 body {
   @apply bg-BackgroundLight text-TextLight dark:bg-BackgroundDark dark:text-TextDark;
 }
+
+.shadow-top {
+  box-shadow: 0 0 10px 3px rgba(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
+  clip-path: polygon(0% -20%, 100% -20%, 100% 100%, 0% 100%);
+}

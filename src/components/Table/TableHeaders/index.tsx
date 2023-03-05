@@ -9,15 +9,15 @@ import { TableSort } from '../../../models/TableSort';
 export type TableHeadersProps = {
   titles: string[];
   sort: TableSort;
-  onArrowClick: (sort: TableSort) => void;
-  colorArrowSelected: string;
+  onClickArrow: (sort: TableSort) => void;
+  colorSelectedArrow: string;
 };
 
 export default function TableHeaders({
   titles,
   sort,
-  colorArrowSelected = 'bg-black',
-  onArrowClick,
+  colorSelectedArrow,
+  onClickArrow,
 }: TableHeadersProps) {
   return (
     <tr>
@@ -30,20 +30,20 @@ export default function TableHeaders({
                 className={`h-4 w-4 mx-2 ${
                   sort.key === title &&
                   sort.sortOrder === SortOrder.asc &&
-                  colorArrowSelected
+                  colorSelectedArrow
                 }`}
                 onClick={() =>
-                  onArrowClick({ key: title, sortOrder: SortOrder.asc })
+                  onClickArrow({ key: title, sortOrder: SortOrder.asc })
                 }
               />
               <ArrowUp
                 className={`h-4 w-4 mx-2 ${
                   sort.key === title &&
                   sort.sortOrder === SortOrder.desc &&
-                  colorArrowSelected
+                  colorSelectedArrow
                 }`}
                 onClick={() =>
-                  onArrowClick({ key: title, sortOrder: SortOrder.desc })
+                  onClickArrow({ key: title, sortOrder: SortOrder.desc })
                 }
               />
             </div>

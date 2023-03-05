@@ -17,8 +17,8 @@ import TableBody from './TableBody';
 export interface TableProps {
   size?: TableSizes;
   tableData: TableItem[];
-  colorArrowSelected: string;
-  placeholder: string;
+  colorSelectedArrow?: string;
+  placeholder?: string;
 }
 
 function getTitles(tableData: TableItem[]): string[] {
@@ -31,8 +31,8 @@ function getTitles(tableData: TableItem[]): string[] {
 export default function Table({
   size = TableSizes.MEDIUM,
   tableData,
-  colorArrowSelected = 'text-black',
-  placeholder,
+  colorSelectedArrow = 'text-black',
+  placeholder = '',
 }: TableProps) {
   const [value, setValue] = useState<string>('');
   const debouncedValue = useDebounce<string>(value);
@@ -67,8 +67,8 @@ export default function Table({
               <TableHeaders
                 titles={titles}
                 sort={sort}
-                onArrowClick={setSort}
-                colorArrowSelected={colorArrowSelected}
+                onClickArrow={setSort}
+                colorSelectedArrow={colorSelectedArrow}
               />
 
               <TableBody titles={titles} content={content} />

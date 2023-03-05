@@ -41,12 +41,12 @@ export default function TableScreen({ request }: TableScreenProps) {
           <Tabs>
             {titles.map((item, index) => (
               <Tab title={item} key={index}>
-                <Table tableData={data[item]} placeholder="" />
+                <Table tableData={data[item]} />
               </Tab>
             ))}
           </Tabs>
         ) : (
-          <Table tableData={data[titles[0]]} placeholder="" />
+          <Table tableData={data[titles[0]]} />
         )}
       </div>
     </LoadingScreen>

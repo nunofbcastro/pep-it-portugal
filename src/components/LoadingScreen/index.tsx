@@ -6,18 +6,22 @@ export interface LoadingScreenProps {
   children: React.ReactNode;
 }
 
-export function LoadingScreen(props: LoadingScreenProps) {
+export function LoadingScreen({
+  isLoading,
+  isError,
+  children,
+}: LoadingScreenProps) {
   return (
     <>
-      {props.isLoading && (
+      {isLoading && (
         <div className="grid place-items-center h-full">
           <Loading />
         </div>
       )}
 
-      {!props.isLoading && !props.isError && props.children}
+      {!isLoading && !isError && children}
 
-      {!props.isLoading && props.isError && (
+      {!isLoading && isError && (
         <div className="grid place-items-center h-full text-red-700 text-lg">
           Error requesting
         </div>

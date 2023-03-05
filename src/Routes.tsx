@@ -8,6 +8,7 @@ import NotFound from './pages/404';
 
 import Layout from './components/Layout';
 
+import Page from './components/Page';
 import Home from './pages/Home';
 import ChatGPT from './pages/ChatGPT';
 import Companies from './pages/Companies';
@@ -20,35 +21,67 @@ import FirstJob from './pages/FirstJob';
 const routes: RouteObject[] = [
   {
     index: true,
-    element: <Home />,
+    element: (
+      <Page>
+        <Home />
+      </Page>
+    ),
   },
   {
     path: 'chatgpt',
-    element: <ChatGPT />,
+    element: (
+      <Page title="ChatGPT">
+        <ChatGPT />
+      </Page>
+    ),
   },
   {
     path: 'companies',
-    element: <Companies />,
+    element: (
+      <Page title="Empresas">
+        <Companies />
+      </Page>
+    ),
   },
   {
     path: 'courses',
-    element: <Courses />,
+    element: (
+      <Page title="Cursos">
+        <Courses />
+      </Page>
+    ),
   },
   {
     path: 'frameworks',
-    element: <Frameworks />,
+    element: (
+      <Page title="Frameworks">
+        <Frameworks />
+      </Page>
+    ),
   },
   {
     path: 'salaries',
-    element: <Salaries />,
+    element: (
+      <Page title="Salários">
+        <Salaries />
+      </Page>
+    ),
   },
   {
     path: 'workmode',
-    element: <WorkMode />,
+    element: (
+      <Page title="Modo de trabalho">
+        <WorkMode />
+      </Page>
+    ),
   },
   {
     path: 'firstjob',
-    element: <FirstJob />,
+    element: (
+      <Page title="Primeiro emprego">
+        <FirstJob />
+      </Page>
+    ),
   },
 ];
 
@@ -60,7 +93,11 @@ const router = createHashRouter([
   },
   {
     path: '*',
-    element: <NotFound />,
+    element: (
+      <Page title="404">
+        <NotFound />
+      </Page>
+    ),
   },
 ]);
 

@@ -11,15 +11,14 @@ function API(): AxiosInstance {
 
 async function fetchDataFromUrl(
   url: string,
-  tableNames: string[] = []
+  tableNames: string[]
 ): Promise<Tables> {
   const result = (await API().get(url)).data;
 
   return {
-    All_Data: convertTableToJson(selectTableFromMarkdown(result, 0)),
     ...tableNames.reduce((acc: Tables, tableName: string, index: number) => {
       acc[tableName] = convertTableToJson(
-        selectTableFromMarkdown(result, index + 1)
+        selectTableFromMarkdown(result, index)
       );
       return acc;
     }, {}),
@@ -28,39 +27,40 @@ async function fetchDataFromUrl(
 
 export async function GetChatGPT(): Promise<Tables> {
   const url = `${import.meta.env.VITE_URL_CHATGPT}`;
-  return fetchDataFromUrl(url, ['Data_Analysis']);
+  return fetchDataFromUrl(url, ['Todos os dados', 'Análise dos dados']);
 }
 
 export async function GetCompanies(): Promise<Tables> {
   const url = `${import.meta.env.VITE_URL_COMPANIES}`;
-  return fetchDataFromUrl(url);
+  return fetchDataFromUrl(url, ['Todos os dados']);
 }
 
 export async function GetCourses(): Promise<Tables> {
   const url = `${import.meta.env.VITE_URL_COURSES}`;
-  return fetchDataFromUrl(url);
+  return fetchDataFromUrl(url, ['Todos os dados']);
 }
 
 export async function GetFirstJob(): Promise<Tables> {
   const url = `${import.meta.env.VITE_URL_FIRST_JOB}`;
-  return fetchDataFromUrl(url, ['Data_Analysis']);
+  return fetchDataFromUrl(url, ['Todos os dados', 'Análise dos dados']);
 }
 
 export async function GetFrameworks(): Promise<Tables> {
   const url = `${import.meta.env.VITE_URL_FRAMEWORKS}`;
-  return fetchDataFromUrl(url, ['Data_Analysis']);
+  return fetchDataFromUrl(url, ['Todos os dados', 'Análise dos dados']);
 }
 
 export async function GetSalaries(): Promise<Tables> {
   const url = `${import.meta.env.VITE_URL_SALARIES}`;
   return fetchDataFromUrl(url, [
-    'Data_Analysis_Portugal',
-    'Data_Analysis_Outside_Portugal',
-    'Data_Analysis_Roles_Order_Remuneration',
+    'Todos os dados',
+    'Análise dos dados Portugal',
+    'Análise dos dados Fora de Portugal',
+    'Roles por ordem de Remuneração',
   ]);
 }
 
 export async function GetWorkMode(): Promise<Tables> {
   const url = `${import.meta.env.VITE_URL_WORK_MODE}`;
-  return fetchDataFromUrl(url, ['Data_Analysis']);
+  return fetchDataFromUrl(url, ['Todos os dados', 'Análise dos dados']);
 }

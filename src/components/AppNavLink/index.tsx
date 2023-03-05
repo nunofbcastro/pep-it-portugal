@@ -1,5 +1,6 @@
 import { useLinkClickHandler, useLocation } from 'react-router-dom';
 import { Navbar } from 'flowbite-react';
+import { useMemo } from 'react';
 
 export interface AppNavLinkProps {
   to: string;
@@ -11,12 +12,12 @@ export default function AppNavLink(props: AppNavLinkProps) {
   const location = useLocation();
   const clickHandler = useLinkClickHandler(props.to);
 
-  const ValidatePath = () => {
+  const ValidatePath = useMemo(() => {
     let atualPath = location.pathname.split('/');
     let verifyPath = props.to.split('/');
 
     if (atualPath.length < verifyPath.length) {
-      return false;
+      return () => false;
     }
 
     let count = 0;
@@ -28,8 +29,8 @@ export default function AppNavLink(props: AppNavLinkProps) {
       count++;
     }
 
-    return count == verifyPath.length;
-  };
+    return () => count == verifyPath.length;
+  }, [location.pathname, props.to]);
 
   return (
     <span onClick={clickHandler} className={props.className}>

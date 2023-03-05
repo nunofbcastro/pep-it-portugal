@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 function extractHostName(url: string): string | null {
   const match = url.match(/^(?:https?:\/\/)?(?:www\.)?([^:/\n?=]+)/i);
   if (match) {
@@ -14,9 +16,10 @@ export interface TwitchProps {
 }
 
 export default function Twitch(props: TwitchProps) {
-  const src = `https://player.twitch.tv/?channel=${
-    props.channel
-  }&parent=${extractHostName(window.location.origin)}`;
+  const src = useMemo(() => {
+    const hostName = extractHostName(window.location.origin);
+    return `https://player.twitch.tv/?channel=${props.channel}&parent=${hostName}`;
+  }, [props.channel]);
 
   return (
     <iframe

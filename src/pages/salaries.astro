@@ -1,0 +1,89 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { DataTable } from '../components/ui/DataTable';
+import { GetSalaries } from '../services/data';
+import { BarChartComponent } from '../components/charts/BarChartComponent';
+import { LastUpdated } from '../components/ui/LastUpdated';
+
+const data = await GetSalaries();
+const allData = data['Todos os dados'] || [];
+const statsPT = data['Análise dos dados Portugal'] || [];
+const statsForeign = data['Análise dos dados Fora de Portugal'] || [];
+
+const transformDataForChart = (tableData: any[]): Record<string, string | number>[] => {
+    if (!tableData || tableData.length === 0) return [];
+    
+    return tableData.map((row: any) => {
+        const newRow: Record<string, string | number> = { ...row };
+        Object.keys(newRow).forEach(key => {
+             let val = newRow[key];
+             if(typeof val === 'string') {
+                 // Clean value: remove € and replace european decimal format
+                 val = val.replace(/[€\s]/g, '').replace(/\./g, '').replace(',', '.');
+                 const num = Number(val);
+                 if(!isNaN(num) && val !== '') {
+                     newRow[key] = num;
+                 }
+             }
+        });
+        return newRow;
+    });
+}
+
+const chartDataPT = transformDataForChart(statsPT);
+const chartDataForeign = transformDataForChart(statsForeign);
+
+const getNumericKey = (row: any): string => {
+    if (!row) return '';
+    return Object.keys(row).find(k => typeof row[k] === 'number') || '';
+}
+
+const getLabelKey = (row: any): string => {
+    if (!row) return '';
+    return Object.keys(row).find(k => typeof row[k] === 'string') || Object.keys(row)[0] || '';
+}
+
+const ptYKey = getNumericKey(chartDataPT[0]);
+const ptXKey = getLabelKey(chartDataPT[0]);
+
+const foreignYKey = getNumericKey(chartDataForeign[0]);
+const foreignXKey = getLabelKey(chartDataForeign[0]);
+---
+
+<Layout title="Salários - PEP IT Portugal">
+    <div class="mb-6">
+        <h1 class="text-4xl font-bold text-slate-900 dark:text-white mb-2">Salários</h1>
+        <p class="text-slate-600 dark:text-gray-400">Análise detalhada dos salários em Portugal e no estrangeiro.</p>
+    </div>
+    
+    <div class="mb-12">
+        <LastUpdated repository="pep-it-portugal-salaries" client:only="react" />
+    </div>
+
+     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+        {chartDataPT.length > 0 && ptYKey && (
+            <BarChartComponent 
+                client:load 
+                title="Análise Portugal"
+                data={chartDataPT} 
+                xKey={ptXKey} 
+                barKeys={[ptYKey]} 
+            />
+        )}
+         {chartDataForeign.length > 0 && foreignYKey && (
+            <BarChartComponent 
+                client:load 
+                title="Análise Internacional"
+                data={chartDataForeign} 
+                xKey={foreignXKey} 
+                barKeys={[foreignYKey]} 
+            />
+        )}
+     </div>
+
+    <div style="display: flex; flex-direction: column; gap: 3rem;">
+        {statsPT.length > 0 && <DataTable client:load data={statsPT} title="Tabela de Análise (Portugal)" />}
+        {statsForeign.length > 0 && <DataTable client:load data={statsForeign} title="Tabela de Análise (Internacional)" />}
+        {allData.length > 0 && <DataTable client:load data={allData} title="Todos os dados" />}
+    </div>
+</Layout>

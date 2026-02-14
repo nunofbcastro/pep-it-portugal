@@ -1,0 +1,96 @@
+@import "tailwindcss";
+@import './markdown.css';
+
+@layer base {
+
+  /* CSS Variables for theme colors */
+  :root {
+    --color-background: 248 250 252;
+    /* slate-50 */
+    --color-foreground: 15 23 42;
+    /* slate-900 */
+    --color-muted: 226 232 240;
+    /* slate-200 */
+    --color-muted-foreground: 100 116 139;
+    /* slate-500 */
+    --color-border: 203 213 225;
+    /* slate-300 */
+    --color-accent: 241 245 249;
+    /* slate-100 */
+    --color-card: 255 255 255;
+    /* white */
+  }
+
+  .dark {
+    --color-background: 2 6 23;
+    /* slate-950 */
+    --color-foreground: 248 250 252;
+    /* slate-50 */
+    --color-muted: 30 41 59;
+    /* slate-800 */
+    --color-muted-foreground: 148 163 184;
+    /* slate-400 */
+    --color-border: 51 65 85;
+    /* slate-700 */
+    --color-accent: 15 23 42;
+    /* slate-900 */
+    --color-card: 15 23 42;
+    /* slate-900 */
+  }
+
+  * {
+    border-color: rgb(var(--color-border));
+  }
+
+  body {
+    @apply antialiased transition-colors duration-300;
+    background-color: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+  }
+
+  /* Smooth transitions for theme changes */
+  html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-200 dark:bg-slate-900 transition-colors;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-400 dark:bg-slate-700 rounded-full hover:bg-slate-500 dark:hover:bg-slate-600 transition-colors;
+}
+
+/* Utility classes */
+@layer utilities {
+  .bg-background {
+    background-color: rgb(var(--color-background));
+  }
+
+  .text-foreground {
+    color: rgb(var(--color-foreground));
+  }
+
+  .bg-muted {
+    background-color: rgb(var(--color-muted));
+  }
+
+  .text-muted-foreground {
+    color: rgb(var(--color-muted-foreground));
+  }
+
+  .border-border {
+    border-color: rgb(var(--color-border));
+  }
+
+  .bg-card {
+    background-color: rgb(var(--color-card));
+  }
+}

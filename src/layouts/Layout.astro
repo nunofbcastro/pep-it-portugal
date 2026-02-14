@@ -1,0 +1,75 @@
+---
+import { SEO } from 'astro-seo';
+import Header from '../components/Header.astro';
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+    description?: string;
+}
+
+const { title, description = "Análise do mercado de TI em Portugal - PEP IT" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/png" href="/icon.png" />
+		<meta name="generator" content={Astro.generator} />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        
+		<!-- Prevent flash of incorrect theme -->
+		<script is:inline>
+			const theme = localStorage.getItem('theme') || 
+			              (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+			if (theme === 'dark') {
+				document.documentElement.classList.add('dark');
+			}
+		</script>
+
+        <SEO
+            title={title}
+            description={description}
+            openGraph={{
+                basic: {
+                    title: title,
+                    type: "website",
+                    image: "https://pep-it-portugal.vercel.app/og-image.png",
+                }
+            }}
+            extend={{
+                link: [{ rel: "icon", href: "/icon.png" }],
+                meta: [
+                    { name: "twitter:image", content: "https://pep-it-portugal.vercel.app/og-image.png" },
+                    { name: "twitter:title", content: title },
+                    { name: "twitter:description", content: description },
+                ],
+            }}
+        />
+	</head>
+	<body class="min-h-screen flex flex-col font-['Inter',sans-serif]">
+        <!-- Background gradient -->
+        <div class="fixed inset-0 z-[-1] pointer-events-none bg-gradient-to-b from-slate-100 to-slate-50 dark:from-slate-900 dark:to-slate-950 transition-colors duration-300"></div>
+		
+		<Header />
+		
+		<main class="flex-grow container mx-auto px-4 py-8 relative">
+			<slot />
+		</main>
+		
+		<footer class="bg-white/50 dark:bg-slate-950/50 backdrop-blur-sm border-t border-slate-200 dark:border-slate-900 py-8 text-center text-slate-500 dark:text-slate-500 transition-colors">
+			<div class="container mx-auto px-4">
+				<p class="mb-1">&copy; {new Date().getFullYear()} nunofbcastro</p>
+				<p class="text-sm text-slate-400 dark:text-slate-600 mb-4">Este site não é oficial e não está afiliado ao PEP IT Portugal</p>
+				<div class="flex justify-center gap-6 mt-4">
+					<a href="https://github.com/porqueeuprogramo" target="_blank" class="hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors">GitHub</a>
+					<a href="https://twitch.tv/porqueeuprogramo" target="_blank" class="hover:text-purple-500 dark:hover:text-purple-400 transition-colors">Twitch</a>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>

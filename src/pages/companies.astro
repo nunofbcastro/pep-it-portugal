@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { CompaniesList } from '../components/CompaniesList';
+---
+
+<Layout title="Empresas - PEP IT Portugal">
+     <div class="mb-12">
+        <h1 class="text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">Empresas</h1>
+        <p class="text-slate-600 dark:text-slate-400 text-lg">Lista colaborativa de empresas de TI em Portugal.</p>
+    </div>
+
+    <CompaniesList client:load />
+</Layout>

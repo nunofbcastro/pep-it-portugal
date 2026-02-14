@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { DataTable } from '../components/ui/DataTable';
+import { GetFirstJob } from '../services/data';
+import { LastUpdated } from '../components/ui/LastUpdated';
+import { BarChartComponent } from '../components/charts/BarChartComponent';
+
+const data = await GetFirstJob();
+const allData = data['Todos os dados'] || [];
+const stats = data['Análise dos dados'] || [];
+
+const chartData: Record<string, string | number>[] = stats.map((row: any) => {
+    const newRow: Record<string, string | number> = { ...row };
+    Object.keys(newRow).forEach(key => {
+        let val = newRow[key];
+        if (typeof val === 'string') {
+            if (val.trim().endsWith('%')) {
+               val = val.replace('%', '');
+            }
+            const num = Number(val);
+            if (!isNaN(num) && val !== '') {
+                newRow[key] = num;
+            }
+        }
+    });
+    return newRow;
+});
+
+const getNumericKey = (row: any): string => {
+    if (!row) return '';
+    return Object.keys(row).find(k => typeof row[k] === 'number') || '';
+}
+
+const getLabelKey = (row: any): string => {
+    if (!row) return '';
+    return Object.keys(row).find(k => typeof row[k] === 'string') || Object.keys(row)[0] || '';
+}
+
+const yKey = getNumericKey(chartData[0]);
+const xKey = getLabelKey(chartData[0]);
+
+---
+
+<Layout title="Primeiro Emprego - PEP IT Portugal">
+    <div class="mb-6">
+        <h1 class="text-4xl font-bold text-slate-900 dark:text-white mb-2">Primeiro Emprego</h1>
+        <p class="text-slate-600 dark:text-gray-400">Dados sobre estágios e posições de entrada.</p>
+    </div>
+    
+    <div class="mb-12">
+        <LastUpdated repository="pep-it-portugal-first-job" client:only="react" />
+    </div>
+
+     {chartData.length > 0 && yKey && (
+        <div class="mb-16">
+            <BarChartComponent 
+                client:load 
+                title="Estatísticas Primeiro Emprego"
+                data={chartData} 
+                xKey={xKey} 
+                barKeys={[yKey]} 
+            />
+        </div>
+    )}
+
+    <div style="display: flex; flex-direction: column; gap: 3rem;">
+        {stats.length > 0 && <DataTable client:load data={stats} title="Estatísticas" />}
+        {allData.length > 0 && <DataTable client:load data={allData} title="Todos os dados" />}
+    </div>
+</Layout>

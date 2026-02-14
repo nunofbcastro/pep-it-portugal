@@ -1,0 +1,18 @@
+@reference "tailwindcss";
+
+/* Markdown cell styles */
+.markdown-cell a {
+    @apply text-emerald-400 hover:text-emerald-300 underline transition-colors;
+}
+
+.markdown-cell strong {
+    @apply font-bold text-white;
+}
+
+.markdown-cell em {
+    @apply italic;
+}
+
+.markdown-cell code {
+    @apply bg-slate-900 px-1.5 py-0.5 rounded text-sm font-mono text-emerald-400;
+}

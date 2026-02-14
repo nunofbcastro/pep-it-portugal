@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { DataTable } from '../components/ui/DataTable';
+import { LastUpdated } from '../components/ui/LastUpdated';
+import { GetCourses } from '../services/data';
+
+const data = await GetCourses();
+const allData = data['Todos os dados'] || [];
+---
+
+<Layout title="Cursos - PEP IT Portugal">
+    <div class="mb-6">
+        <h1 class="text-4xl font-bold text-slate-900 dark:text-white mb-2">Cursos e Educação</h1>
+        <p class="text-slate-600 dark:text-gray-400">Recursos educacionais e cursos recomendados.</p>
+    </div>
+    
+    <div class="mb-12">
+        <LastUpdated repository="pep-it-portugal-courses" client:only="react" />
+    </div>
+
+    {allData.length > 0 ? (
+        <DataTable client:load data={allData} title="Cursos" />
+    ) : (
+        <p class="text-slate-600 dark:text-gray-400">Nenhum dado encontrado.</p>
+    )}
+</Layout>

@@ -1,0 +1,76 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { DataTable } from '../components/ui/DataTable';
+import { GetWorkMode } from '../services/data';
+import { LastUpdated } from '../components/ui/LastUpdated';
+import { PieChartComponent } from '../components/charts/PieChartComponent';
+
+const data = await GetWorkMode();
+const allData = data['Todos os dados'] || [];
+const stats = data['Análise dos dados'] || [];
+
+const transformDataForChart = (tableData: any[]): Record<string, string | number>[] => {
+    if (!tableData || tableData.length === 0) return [];
+    
+    return tableData.map((row: any) => {
+        const newRow: Record<string, string | number> = { ...row };
+        Object.keys(newRow).forEach(key => {
+             let val = newRow[key];
+             if(typeof val === 'string') {
+                 // Try to handle "10%" case
+                 if (val.trim().endsWith('%')) {
+                    val = val.replace('%', '');
+                 }
+                 const num = Number(val);
+                 if(!isNaN(num) && val !== '') {
+                     newRow[key] = num;
+                 }
+             }
+        });
+        return newRow;
+    });
+}
+
+const chartData = transformDataForChart(stats);
+
+const getNumericKey = (row: any): string => {
+    if (!row) return '';
+    return Object.keys(row).find(k => typeof row[k] === 'number') || '';
+}
+
+const getLabelKey = (row: any): string => {
+    if (!row) return '';
+    return Object.keys(row).find(k => typeof row[k] === 'string') || Object.keys(row)[0] || '';
+}
+
+const yKey = getNumericKey(chartData[0]);
+const xKey = getLabelKey(chartData[0]);
+---
+
+<Layout title="Modo de Trabalho - PEP IT Portugal">
+    <div class="mb-6">
+        <h1 class="text-4xl font-bold text-slate-900 dark:text-white mb-2">Modo de Trabalho</h1>
+        <p class="text-slate-600 dark:text-gray-400">Distribuição entre trabalho Remoto, Híbrido e Presencial.</p>
+    </div>
+    
+    <div class="mb-12">
+        <LastUpdated repository="pep-it-portugal-work-mode" client:only="react" />
+    </div>
+
+    {chartData.length > 0 && yKey && (
+        <div class="mb-16 max-w-2xl mx-auto">
+            <PieChartComponent 
+                client:load 
+                title="Distribuição do Modo de Trabalho"
+                data={chartData} 
+                nameKey={xKey} 
+                dataKey={yKey} 
+            />
+        </div>
+    )}
+
+    <div style="display: flex; flex-direction: column; gap: 3rem;">
+        {stats.length > 0 && <DataTable client:load data={stats} title="Estatísticas" />}
+        {allData.length > 0 && <DataTable client:load data={allData} title="Todos os dados" />}
+    </div>
+</Layout>

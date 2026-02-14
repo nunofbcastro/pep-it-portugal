@@ -10,7 +10,7 @@ const getInitialTheme = (): Theme => {
     if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         return 'dark';
     }
-    return 'dark'; // Project preference
+    return 'light'; // Default to light if no preference
 };
 
 export const themeStore = atom<Theme>(getInitialTheme());
@@ -29,8 +29,10 @@ export function toggleTheme() {
         const root = document.documentElement;
         if (newTheme === 'dark') {
             root.classList.add('dark');
+            root.style.colorScheme = 'dark';
         } else {
             root.classList.remove('dark');
+            root.style.colorScheme = 'light';
         }
     }
 }

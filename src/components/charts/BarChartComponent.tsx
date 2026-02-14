@@ -49,32 +49,37 @@ export const BarChartComponent: React.FC<BarChartProps> = ({
                             bottom: 20,
                         }}
                     >
-                        <CartesianGrid strokeDasharray="3 3" stroke="rgb(var(--color-border))" />
+                        <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} opacity={0.3} />
                         <XAxis
                             dataKey={xKey}
-                            stroke="rgb(var(--color-muted-foreground))"
+                            stroke="#94a3b8"
                             fontSize={12}
-                            tick={{ fill: 'rgb(var(--color-muted-foreground))' }}
-                            angle={0}
-                            textAnchor="middle"
+                            tick={{ fill: '#94a3b8' }}
+                            axisLine={{ stroke: '#475569' }}
+                            tickLine={{ stroke: '#475569' }}
                         />
                         <YAxis
-                            stroke="rgb(var(--color-muted-foreground))"
+                            stroke="#94a3b8"
                             fontSize={12}
-                            tick={{ fill: 'rgb(var(--color-muted-foreground))' }}
-                            width={60}
+                            tick={{ fill: '#94a3b8' }}
+                            axisLine={{ stroke: '#475569' }}
+                            tickLine={{ stroke: '#475569' }}
+                            width={50}
                         />
                         <Tooltip
                             contentStyle={{
-                                backgroundColor: 'rgb(var(--color-card))',
-                                border: '1px solid rgb(var(--color-border))',
-                                color: 'rgb(var(--color-foreground))',
-                                borderRadius: '8px'
+                                backgroundColor: '#1e293b',
+                                border: '1px solid #334155',
+                                borderRadius: '8px',
+                                color: '#f8fafc'
                             }}
-                            itemStyle={{ color: 'rgb(var(--color-foreground))' }}
-                            cursor={{ fill: 'rgb(var(--color-muted))', opacity: 0.4 }}
+                            itemStyle={{ fontSize: '13px' }}
+                            cursor={{ fill: '#334155', opacity: 0.2 }}
                         />
-                        <Legend wrapperStyle={{ color: 'rgb(var(--color-muted-foreground))', paddingTop: '10px' }} />
+                        <Legend
+                            wrapperStyle={{ paddingTop: '20px' }}
+                            formatter={(value) => <span style={{ color: '#94a3b8', fontSize: '12px' }}>{value}</span>}
+                        />
                         {(barKeys || []).map((key, index) => (
                             <Bar
                                 key={key}

@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import { DataTable } from '../components/ui/DataTable';
 import { GetSalaries } from '../services/data';
 import { BarChartComponent } from '../components/charts/BarChartComponent';
+import { ScatterChartComponent } from '../components/charts/ScatterChartComponent';
 import { LastUpdated } from '../components/ui/LastUpdated';
 
 const data = await GetSalaries();
@@ -14,16 +15,22 @@ const transformDataForChart = (tableData: any[]): Record<string, string | number
     if (!tableData || tableData.length === 0) return [];
     
     return tableData.map((row: any) => {
-        const newRow: Record<string, string | number> = { ...row };
-        Object.keys(newRow).forEach(key => {
-             let val = newRow[key];
+        const newRow: Record<string, string | number> = {};
+        Object.keys(row).forEach(key => {
+             let val = row[key];
+             const newKey = key === '' ? 'Categoria' : key;
+             
              if(typeof val === 'string') {
                  // Clean value: remove € and replace european decimal format
-                 val = val.replace(/[€\s]/g, '').replace(/\./g, '').replace(',', '.');
-                 const num = Number(val);
-                 if(!isNaN(num) && val !== '') {
-                     newRow[key] = num;
+                 const cleanVal = val.replace(/[€\s]/g, '').replace(/\./g, '').replace(',', '.');
+                 const num = Number(cleanVal);
+                 if(!isNaN(num) && cleanVal !== '') {
+                     newRow[newKey] = num;
+                 } else {
+                     newRow[newKey] = val;
                  }
+             } else {
+                 newRow[newKey] = val;
              }
         });
         return newRow;
@@ -33,21 +40,14 @@ const transformDataForChart = (tableData: any[]): Record<string, string | number
 const chartDataPT = transformDataForChart(statsPT);
 const chartDataForeign = transformDataForChart(statsForeign);
 
-const getNumericKey = (row: any): string => {
-    if (!row) return '';
-    return Object.keys(row).find(k => typeof row[k] === 'number') || '';
+const getNumericKeys = (data: any[]): string[] => {
+    if (!data || data.length === 0) return [];
+    return Object.keys(data[0]).filter(k => typeof data[0][k] === 'number' && k !== 'Nº Pessoas do Estudo');
 }
 
-const getLabelKey = (row: any): string => {
-    if (!row) return '';
-    return Object.keys(row).find(k => typeof row[k] === 'string') || Object.keys(row)[0] || '';
-}
-
-const ptYKey = getNumericKey(chartDataPT[0]);
-const ptXKey = getLabelKey(chartDataPT[0]);
-
-const foreignYKey = getNumericKey(chartDataForeign[0]);
-const foreignXKey = getLabelKey(chartDataForeign[0]);
+const xKey = 'Categoria';
+const ptBarKeys = getNumericKeys(chartDataPT);
+const foreignBarKeys = getNumericKeys(chartDataForeign);
 ---
 
 <Layout title="Salários - PEP IT Portugal">
@@ -61,25 +61,39 @@ const foreignXKey = getLabelKey(chartDataForeign[0]);
     </div>
 
      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-        {chartDataPT.length > 0 && ptYKey && (
+        {chartDataPT.length > 0 && ptBarKeys.length > 0 && (
             <BarChartComponent 
                 client:load 
-                title="Análise Portugal"
+                title="Distribuição Salarial Portugal"
                 data={chartDataPT} 
-                xKey={ptXKey} 
-                barKeys={[ptYKey]} 
+                xKey={xKey} 
+                barKeys={ptBarKeys} 
             />
         )}
-         {chartDataForeign.length > 0 && foreignYKey && (
+         {chartDataForeign.length > 0 && foreignBarKeys.length > 0 && (
             <BarChartComponent 
                 client:load 
-                title="Análise Internacional"
+                title="Distribuição Salarial Internacional"
                 data={chartDataForeign} 
-                xKey={foreignXKey} 
-                barKeys={[foreignYKey]} 
+                xKey={xKey} 
+                barKeys={foreignBarKeys} 
             />
         )}
      </div>
+
+     {allData.length > 0 && (
+         <div class="mb-16">
+             <ScatterChartComponent 
+                client:load
+                title="Correlação: Anos de Experiência vs Salário"
+                data={transformDataForChart(allData)}
+                xKey="Anos de Experiência ?"
+                yKey="Salário Bruto Anual (€)"
+                xLabel="Anos de Experiência"
+                yLabel="Salário Anual"
+             />
+         </div>
+     )}
 
     <div style="display: flex; flex-direction: column; gap: 3rem;">
         {statsPT.length > 0 && <DataTable client:load data={statsPT} title="Tabela de Análise (Portugal)" />}

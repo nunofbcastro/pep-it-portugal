@@ -4,41 +4,51 @@ import { DataTable } from '../components/ui/DataTable';
 import { GetFirstJob } from '../services/data';
 import { LastUpdated } from '../components/ui/LastUpdated';
 import { BarChartComponent } from '../components/charts/BarChartComponent';
+import { ScatterChartComponent } from '../components/charts/ScatterChartComponent';
 
 const data = await GetFirstJob();
 const allData = data['Todos os dados'] || [];
 const stats = data['Análise dos dados'] || [];
 
-const chartData: Record<string, string | number>[] = stats.map((row: any) => {
-    const newRow: Record<string, string | number> = { ...row };
-    Object.keys(newRow).forEach(key => {
-        let val = newRow[key];
+const statsData = stats.map((row: any) => {
+    const newRow: Record<string, string | number> = {};
+    Object.keys(row).forEach(key => {
+        let val = row[key];
+        const newKey = key === '' ? 'Tempo' : key;
         if (typeof val === 'string') {
-            if (val.trim().endsWith('%')) {
-               val = val.replace('%', '');
-            }
-            const num = Number(val);
+            const num = Number(val.replace(/\s/g, '').replace(',', '.'));
             if (!isNaN(num) && val !== '') {
-                newRow[key] = num;
+                newRow[newKey] = num;
+            } else {
+                newRow[newKey] = val;
             }
+        } else {
+            newRow[newKey] = val;
         }
     });
     return newRow;
 });
 
-const getNumericKey = (row: any): string => {
-    if (!row) return '';
-    return Object.keys(row).find(k => typeof row[k] === 'number') || '';
-}
+const rawChartData = allData.map((row: any) => {
+    const newRow: Record<string, string | number> = {};
+    Object.keys(row).forEach(key => {
+        let val = row[key];
+        if (typeof val === 'string') {
+            const num = Number(val.replace(/\s/g, '').replace(',', '.'));
+            if (!isNaN(num) && val !== '') {
+                newRow[key] = num;
+            } else {
+                newRow[key] = val;
+            }
+        } else {
+            newRow[key] = val;
+        }
+    });
+    return newRow;
+});
 
-const getLabelKey = (row: any): string => {
-    if (!row) return '';
-    return Object.keys(row).find(k => typeof row[k] === 'string') || Object.keys(row)[0] || '';
-}
-
-const yKey = getNumericKey(chartData[0]);
-const xKey = getLabelKey(chartData[0]);
-
+const statBarKeys = ['Média Remuneração Recebida (BRUTO)', 'Média Remuneração Expectavel (BRUTO)'];
+const xKey = 'Tempo';
 ---
 
 <Layout title="Primeiro Emprego - PEP IT Portugal">
@@ -51,17 +61,33 @@ const xKey = getLabelKey(chartData[0]);
         <LastUpdated repository="pep-it-portugal-first-job" client:only="react" />
     </div>
 
-     {chartData.length > 0 && yKey && (
-        <div class="mb-16">
-            <BarChartComponent 
-                client:load 
-                title="Estatísticas Primeiro Emprego"
-                data={chartData} 
-                xKey={xKey} 
-                barKeys={[yKey]} 
-            />
-        </div>
-    )}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+        {statsData.length > 0 && (
+            <div class="lg:col-span-1">
+                <BarChartComponent 
+                    client:load 
+                    title="Expectativa vs Realidade (Média)"
+                    data={statsData} 
+                    xKey={xKey} 
+                    barKeys={statBarKeys} 
+                />
+            </div>
+        )}
+
+        {rawChartData.length > 0 && (
+            <div class="lg:col-span-1">
+                <ScatterChartComponent 
+                    client:load
+                    title="Expectativa vs Realidade (Raw)"
+                    data={rawChartData}
+                    xKey="Remuneração Mensal Expectável ?"
+                    yKey="Remuneração Mensal Recebida ?"
+                    xLabel="Remuneração Expectável"
+                    yLabel="Remuneração Recebida"
+                />
+            </div>
+        )}
+    </div>
 
     <div style="display: flex; flex-direction: column; gap: 3rem;">
         {stats.length > 0 && <DataTable client:load data={stats} title="Estatísticas" />}

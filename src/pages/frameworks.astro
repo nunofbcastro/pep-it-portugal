@@ -10,35 +10,31 @@ const allData = data['Todos os dados'] || [];
 const stats = data['Análise dos dados'] || [];
 
 const chartData: Record<string, string | number>[] = stats.map((row: any) => {
-    const newRow: Record<string, string | number> = { ...row };
-    Object.keys(newRow).forEach(key => {
-        let val = newRow[key];
+    const newRow: Record<string, string | number> = {};
+    // Handle the empty key from markdown table by naming it "Framework"
+    Object.keys(row).forEach(key => {
+        let val = row[key];
+        const newKey = key === '' ? 'Framework' : key;
+        
         if (typeof val === 'string') {
             if (val.trim().endsWith('%')) {
                val = val.replace('%', '');
             }
-            const num = Number(val);
+            const num = Number(val.replace(',', '.'));
             if (!isNaN(num) && val !== '') {
-                newRow[key] = num;
+                newRow[newKey] = num;
+            } else {
+                newRow[newKey] = val;
             }
+        } else {
+            newRow[newKey] = val;
         }
     });
     return newRow;
 });
 
-const getNumericKey = (row: any): string => {
-    if (!row) return '';
-    return Object.keys(row).find(k => typeof row[k] === 'number') || '';
-}
-
-const getLabelKey = (row: any): string => {
-    if (!row) return '';
-    return Object.keys(row).find(k => typeof row[k] === 'string') || Object.keys(row)[0] || '';
-}
-
-const yKey = getNumericKey(chartData[0]);
-const xKey = getLabelKey(chartData[0]);
-
+const barKeys = Object.keys(chartData[0] || {}).filter(k => typeof chartData[0][k] === 'number');
+const xKey = 'Framework';
 ---
 
 <Layout title="Frameworks - PEP IT Portugal">
@@ -51,14 +47,14 @@ const xKey = getLabelKey(chartData[0]);
         <LastUpdated repository="pep-it-portugal-frameworks" client:only="react" />
     </div>
 
-    {chartData.length > 0 && yKey && (
+    {chartData.length > 0 && barKeys.length > 0 && (
         <div class="mb-16">
             <BarChartComponent 
                 client:load 
-                title="Tecnologias Mais Populares"
+                title="Popularidade vs Dificuldade das Frameworks"
                 data={chartData} 
                 xKey={xKey} 
-                barKeys={[yKey]} 
+                barKeys={barKeys} 
             />
         </div>
     )}

@@ -1,6 +1,5 @@
 import React from 'react';
-// eslint-disable-next-line deprecation/deprecation
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+import { PieChart, Pie, Sector, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { LastUpdated } from '../ui/LastUpdated';
 
 interface PieChartProps {
@@ -13,7 +12,7 @@ interface PieChartProps {
     repository?: string;
 }
 
-const DEFAULT_COLORS = ['#E63946', '#1D3557', '#A8DADC'];
+const DEFAULT_COLORS = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEEAD', '#D4A5A5', '#9DE1FE'];
 
 export const PieChartComponent: React.FC<PieChartProps> = ({
     data,
@@ -37,17 +36,37 @@ export const PieChartComponent: React.FC<PieChartProps> = ({
                 fill="white"
                 textAnchor="middle"
                 dominantBaseline="central"
-                className="text-sm font-semibold"
+                className="text-xs font-bold drop-shadow-sm"
             >
                 {`${(percent * 100).toFixed(0)}%`}
             </text>
         );
     };
 
+    // Custom shape renderer to replace deprecated Cell
+    const renderSector = (props: any) => {
+        const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill: _fill, payload, index } = props;
+        // Correctly handle the color from payload or defaults
+        const color = payload?.color || colors[index % colors.length];
+
+        return (
+            <Sector
+                cx={cx}
+                cy={cy}
+                innerRadius={innerRadius}
+                outerRadius={outerRadius}
+                startAngle={startAngle}
+                endAngle={endAngle}
+                fill={color}
+                className="transition-all duration-300 hover:opacity-80 cursor-pointer"
+            />
+        );
+    };
+
     return (
-        <div className="w-full bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 transition-colors">
-            <div className="flex items-center justify-between mb-4">
-                {title && <h2 className="text-xl font-bold text-slate-800 dark:text-slate-200">{title}</h2>}
+        <div className="w-full bg-card p-6 rounded-xl shadow-xl border border-border transition-all hover:shadow-2xl">
+            <div className="flex items-center justify-between mb-6">
+                {title && <h2 className="text-xl font-extrabold text-foreground tracking-tight">{title}</h2>}
                 {repository && <LastUpdated repository={repository} />}
             </div>
             <div style={{ height: `${height}px` }} role="img" aria-label={`Gráfico de pizza: ${title}`}>
@@ -59,26 +78,31 @@ export const PieChartComponent: React.FC<PieChartProps> = ({
                             cy="50%"
                             labelLine={false}
                             label={renderCustomLabel}
-                            outerRadius="70%"
+                            outerRadius="80%"
                             fill="#8884d8"
                             dataKey={dataKey}
-                        >
-                            {data.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={entry.color || colors[index % colors.length]} />
-                            ))}
-                        </Pie>
+                            shape={renderSector}
+                            animationBegin={0}
+                            animationDuration={1500}
+                        />
                         <Tooltip
                             contentStyle={{
                                 backgroundColor: 'rgb(var(--color-card))',
+                                borderRadius: '12px',
                                 border: '1px solid rgb(var(--color-border))',
-                                color: 'rgb(var(--color-foreground))',
-                                borderRadius: '8px'
+                                boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)',
+                                padding: '12px'
                             }}
-                            itemStyle={{ color: 'rgb(var(--color-foreground))' }}
+                            itemStyle={{
+                                color: 'rgb(var(--color-foreground))',
+                                fontWeight: '500',
+                                fontSize: '13px'
+                            }}
                         />
                         <Legend
-                            wrapperStyle={{ paddingTop: '20px' }}
+                            wrapperStyle={{ paddingTop: '24px' }}
                             iconType="circle"
+                            formatter={(value) => <span className="text-slate-600 dark:text-slate-400 font-medium text-xs">{value}</span>}
                         />
                     </PieChart>
                 </ResponsiveContainer>

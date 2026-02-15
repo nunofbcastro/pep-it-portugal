@@ -33,7 +33,7 @@ const chartData: Record<string, string | number>[] = stats.map((row: any) => {
     return newRow;
 });
 
-const barKeys = Object.keys(chartData[0] || {}).filter(k => typeof chartData[0][k] === 'number');
+const barKeys = Object.keys(chartData[0] || {}).filter(k => typeof chartData[0]?.[k] === 'number');
 const xKey = 'Framework';
 ---
 

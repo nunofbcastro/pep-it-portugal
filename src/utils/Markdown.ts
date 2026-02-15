@@ -49,7 +49,7 @@ function parseTable(tableString: string): TableItem[] {
                 const values = line.split('|').map((value) => value.trim());
                 for (let j = 1; j < headers.length - 1; j++) {
                     const key = headers[j] !== undefined ? headers[j] : `col_${j}`;
-                    if (j < values.length) {
+                    if (j < values.length && key !== undefined) {
                         const value = values[j];
                         if (value !== undefined) {
                             item[key] = value;

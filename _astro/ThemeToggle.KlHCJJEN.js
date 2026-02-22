@@ -1,50 +1,50 @@
 import{j as d}from"./jsx-runtime.D_zvdyIk.js";import{r as c}from"./index.CRC3r6US.js";/**
- * @license lucide-react v0.564.0 - ISC
+ * @license lucide-react v0.575.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const g=(...t)=>t.filter((r,e,o)=>!!r&&r.trim()!==""&&o.indexOf(r)===e).join(" ").trim();/**
- * @license lucide-react v0.564.0 - ISC
+ * @license lucide-react v0.575.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const v=t=>t.replace(/([a-z0-9])([A-Z])/g,"$1-$2").toLowerCase();/**
- * @license lucide-react v0.564.0 - ISC
+ * @license lucide-react v0.575.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const x=t=>t.replace(/^([A-Z])|[\s-_]+(\w)/g,(r,e,o)=>o?o.toUpperCase():e.toLowerCase());/**
- * @license lucide-react v0.564.0 - ISC
+ * @license lucide-react v0.575.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const p=t=>{const r=x(t);return r.charAt(0).toUpperCase()+r.slice(1)};/**
- * @license lucide-react v0.564.0 - ISC
+ * @license lucide-react v0.575.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */var S={xmlns:"http://www.w3.org/2000/svg",width:24,height:24,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:2,strokeLinecap:"round",strokeLinejoin:"round"};/**
- * @license lucide-react v0.564.0 - ISC
+ * @license lucide-react v0.575.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const C=t=>{for(const r in t)if(r.startsWith("aria-")||r==="role"||r==="title")return!0;return!1};/**
- * @license lucide-react v0.564.0 - ISC
+ * @license lucide-react v0.575.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const E=c.forwardRef(({color:t="currentColor",size:r=24,strokeWidth:e=2,absoluteStrokeWidth:o,className:n="",children:a,iconNode:s,...f},y)=>c.createElement("svg",{ref:y,...S,width:r,height:r,stroke:t,strokeWidth:o?Number(e)*24/Number(r):e,className:g("lucide",n),...!a&&!C(f)&&{"aria-hidden":"true"},...f},[...s.map(([w,b])=>c.createElement(w,b)),...Array.isArray(a)?a:[a]]));/**
- * @license lucide-react v0.564.0 - ISC
+ * @license lucide-react v0.575.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const k=(t,r)=>{const e=c.forwardRef(({className:o,...n},a)=>c.createElement(E,{ref:a,iconNode:r,className:g(`lucide-${v(p(t))}`,`lucide-${t}`,o),...n}));return e.displayName=p(t),e};/**
- * @license lucide-react v0.564.0 - ISC
+ * @license lucide-react v0.575.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */const j=[["path",{d:"M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401",key:"kfwtm"}]],$=k("moon",j);/**
- * @license lucide-react v0.564.0 - ISC
+ * @license lucide-react v0.575.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
